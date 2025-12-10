@@ -1,12 +1,13 @@
 #include "minishell.h"
+
 int	main(int argc, char	*argv[], char *envp[])
 {
 	char	*input;
+	t_token	*token_list;
 	//unused uyarısı almamk için yaptım
 	(void)argc;
 	(void)argv;
 	(void)envp;
-
 	//sonusuz shell döngüsü
 	while (1)
 	{
@@ -18,7 +19,7 @@ int	main(int argc, char	*argv[], char *envp[])
 		if (!input)
 		{
 			printf("exit\n");
-			break;
+			break ;
 		}
 		//kullanıcı hiçbir şey girmeden ENTER'A basarsa boş string döner.boş satırı hsitorye gömmüyorum
 		//boş satır değilse historye ekliyroum
@@ -26,6 +27,7 @@ int	main(int argc, char	*argv[], char *envp[])
 		{
 			add_history(input);
 			//saadet
+			token_list = lexer(input);
 			//parse_input(input);
 			//ayşe
 			//exec_command();
