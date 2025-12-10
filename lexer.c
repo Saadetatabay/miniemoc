@@ -49,4 +49,8 @@ int	handle_operator(t_token	**token_list, char *input, int i)
         type = REDIRECT_OUT;
     else
         type = PIPE;
+	
+	content = ft_substr(input, i, 1);
+	//FUNC
+	return (1);
 }

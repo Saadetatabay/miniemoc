@@ -25,4 +25,7 @@ typedef struct s_token
 	struct s_token	*next; //sonraki token
 }	t_token;
 
+t_token	*lexer(char	*input);
+int	handle_operator(t_token	**token_list, char *input, int i);
+
 #endif
