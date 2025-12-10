@@ -23,3 +23,30 @@ t_token	*lexer(char	*input)
 	}
 	return (token_list);
 }
+
+int	handle_operator(t_token	**token_list, char *input, int i)
+{
+	t_token_type	type;
+	char			*content;
+
+	if (input[i + 1] && input[i]== '<' && input[i + 1] == '<')
+	{
+		content = ft_strdup("<<");
+		type = HEREDOC;
+		//TOKEN_LİSTESİNE CONTENTİ EKLEME FUNC GELECEK
+		return (2);
+	}
+	if (input[i + 1] && input[i]== '>' && input[i + 1] == '>')
+	{
+		content = ft_strdup(">>");
+		type = APPEND;
+		//TOKEN_LİSTESİNE CONTENTİ EKLEME FUNC GELECEK
+		return (2);
+	}
+	if (input[i] == '<')
+        type = REDIRECT_IN;
+    else if (input[i] == '>')
+        type = REDIRECT_OUT;
+    else
+        type = PIPE;
+}
