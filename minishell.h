@@ -7,6 +7,17 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
+//Token türlerini
+typedef enum e_token_type
+{
+    WORD,       // Komutlar, argümanlar (echo, ls, -l, dosya.txt)
+    PIPE,       // |
+    REDIRECT_IN, // <
+    REDIRECT_OUT, // >
+    APPEND,     // >>
+    HEREDOC     // <<
+} t_token_type;
+
 typedef struct s_token
 {
 	char			*value; // token içeriği echo mesela
