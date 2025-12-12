@@ -54,7 +54,7 @@ int	handle_operator(t_token	**token_list, char *input, int i)
 			type = PIPE;
 		content = ft_substr(input, i, 1);
 	}
-	new_token = newtoken(content, type);
+	new_token = ft_new_token(content, type);
 	token_add_list(token_list, new_token);
 	return (ret);
 }
@@ -71,4 +71,22 @@ t_token	*ft_new_token(char *content, t_token_type type)
 	new->next = NULL;
 	new->prev = NULL;
 	return (new);
+}
+
+void	token_add_list(t_token **token_list, t_token *new_token)
+{
+	t_token	*temp;
+
+	if (!*token_list)
+	{
+		*token_list = new_token;
+	}
+	else
+	{
+		temp = *token_list;
+		while (temp->next)
+			temp = temp->next;
+		temp->next = new_token;
+		new_token->prev = temp;
+	}
 }
