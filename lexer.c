@@ -18,7 +18,7 @@ t_token	*lexer(char	*input)
 			i += handle_operator(&token_list, input, i);
 		else
 		{
-			//kelime kısmı
+			i += handle_word(&token_list, input, i);
 		}
 	}
 	return (token_list);
@@ -58,6 +58,36 @@ int	handle_operator(t_token	**token_list, char *input, int i)
 	token_add_list(token_list, new_token);
 	return (ret);
 }
+
+int	handle_word(t_token **token_list, char *input, int i)
+{
+	int		start;
+	char	quato;
+	char	*content;
+	t_token	*new_token;
+
+	start = i;
+	while (input[i] && !isspace(input[i]) && input[i] != '|' && input[i] != '<' && input[i] != '>') //ft_isspace yaz
+	{
+		// "ls | wc" şeklinde kısmı aldım
+		if (input[i] == '"' || input[i] == '\'')
+		{
+			quato = input[i];
+			i++;
+			while (input[i] && input[i] != quato)
+				i++;
+			if (input[i])
+				i++;
+		}
+		else // tırnak içinde olmayan kelime
+			i++;
+	}
+	content = ft_substr(input, start, i-start);
+	new_token = ft_new_token(content,WORD);
+	token_add_list(token_list, new_token);
+	return (i-start);
+}
+
 
 t_token	*ft_new_token(char *content, t_token_type type)
 {

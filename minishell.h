@@ -7,6 +7,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <libft/libft.h>
+# include <ctype.h>
 
 //Token türlerini
 typedef enum e_token_type
