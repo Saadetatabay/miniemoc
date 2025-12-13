@@ -4,11 +4,20 @@ int	main(int argc, char	*argv[], char *envp[])
 {
 	char	*input;
 	t_token	*token_list;
+	//t_env	*env_list;
 	//unused uyarısı almamk için yaptım
 	(void)argc;
 	(void)argv;
 	(void)envp;
+	// env_list = NULL;
+	// init_env(&env_list, envp);
+
+    // // 4. TEST: Bakalım listeye almış mıyız? (Sonra sileceğiz)
+    // printf("--- ENV LISTESI ---\n");
+    // print_env(env_list);
+    // printf("-------------------\n");
 	//sonusuz shell döngüsü
+
 	while (1)
 	{
 		//readlien ekrana minishell$ yazını basar ve kullanıcıdan girdi bekler
@@ -21,7 +30,7 @@ int	main(int argc, char	*argv[], char *envp[])
 			printf("exit\n");
 			break ;
 		}
-		//kullanıcı hiçbir şey girmeden ENTER'A basarsa boş string döner.boş satırı hsitorye gömmüyorum
+		// //kullanıcı hiçbir şey girmeden ENTER'A basarsa boş string döner.boş satırı hsitorye gömmüyorum
 		//boş satır değilse historye ekliyroum
 		if (*input)
 		{

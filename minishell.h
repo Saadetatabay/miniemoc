@@ -43,4 +43,7 @@ t_token	*ft_new_token(char *content, t_token_type type);
 void	token_add_list(t_token **token_list, t_token *new_token);
 void    free_token_list(t_token **token);
 void    print_tokens(t_token *token);
+void	init_env(t_env **env_list, char **envp);
+void    print_env(t_env *env);
+
 #endif
