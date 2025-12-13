@@ -45,5 +45,6 @@ void    free_token_list(t_token **token);
 void    print_tokens(t_token *token);
 void	init_env(t_env **env_list, char **envp);
 void    print_env(t_env *env);
+char	*get_env_value(char *name, t_env *env_list);
 
 #endif

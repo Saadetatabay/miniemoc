@@ -49,3 +49,17 @@ void	init_env(t_env **env_list, char **envp)
 		i++;
 	}
 }
+
+char	*get_env_value(char *name, t_env *env_list)
+{
+	t_env	*temp;
+
+	temp = env_list;
+	while (temp)
+	{
+		if (ft_strncmp(name, temp->key, ft_strlen(temp->key) + 1) == 0)
+			return (temp->value);
+		temp = temp->next;
+	}
+	return NULL;
+}

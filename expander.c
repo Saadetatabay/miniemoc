@@ -2,21 +2,45 @@
 
 void	expander(t_token **token_list, t_env *env_list)
 {
-	t_token	*temp;
-	temp = *token_list;
-	while (temp)
+	t_token	*token;
+	token = *token_list;
+	while (token)
 	{
-		if (temp->type == WORD && ft_strchr(temp->value,'$'))
+		if (token->type == WORD && ft_strchr(token->value,'$'))
 		{
-			expand_token(temp, env_list);
+			expand_token(token, env_list);
 		}
-		temp = temp->next;
+		token = token->next;
 	}
 }
 
-void	expand_token(t_token *temp, t_env *env_list)
+void	expand_token(t_token *token, t_env *env_list)
 {
+	int	i;
+	int	single_quote;
+	int	double_quote;
+	char	*name;
+	char	*value;
+	char	*new_deger;
 
+	i = 0;
+	single_quote = 0;
+	double_quote = 0;
+	while (token->value[i])
+	{
+		if (token->value[i] == '\'' && double_quote == 0)
+			single_quote = !single_quote;
+		else if (token->value[i] == '"' && single_quote == 0)
+			double_quote = !double_quote;
+		else if (token->value[i] == '$' && single_quote == 0)
+		{
+			name = var_name(&token->value[i + 1]);
+			value = get_env_value(name, env_list);
+			new_deger = replace_string(token->value, i,ft_strlen(name), ft_strlen(value));
+			token->value = new_deger;
+		}
+		i++;
+	}
 }
 
 char	*var_name(char *s)
@@ -24,7 +48,7 @@ char	*var_name(char *s)
 	int i;
 
 	i = 0;
-	if (s[0])
+	if (s[0] == '?')
 		return (ft_strdup("?"));
 	if (ft_isdigit(s[0]))
 		return (ft_substr(s, 0, 1));
