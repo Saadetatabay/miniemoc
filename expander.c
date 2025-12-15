@@ -54,7 +54,7 @@ void	expand_token(t_token *token, t_env *env_list)
 			{
 				temp_value = get_env_value(name, env_list); // USER ın env listesinde karşılığına bakar satabay mesela
 				if (temp_value)
-					value = ft_strdup(value);
+					value = ft_strdup(temp_value);
 				else
 					value = ft_strdup("");
 			}

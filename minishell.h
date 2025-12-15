@@ -47,7 +47,10 @@ void	init_env(t_env **env_list, char **envp);
 void    print_env(t_env *env);
 char	*get_env_value(char *name, t_env *env_list);
 char    *remove_quotes(char *str);
-
+void	expander(t_token **token_list, t_env *env_list);
+char	*var_name(char *s);
+char	*replace_string(char *old_str, int start, int len_name, char *new);
+void	expand_token(t_token *token, t_env *env_list);
 extern int  exit_status;
 
 #endif

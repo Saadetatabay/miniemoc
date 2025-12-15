@@ -22,6 +22,7 @@ char    *remove_quotes(char *str)
     single_quote = 0;
     double_quote = 0;
     i = 0;
+    j = 0;
     new = malloc(sizeof(char)*(ft_strlen(str) + 1));
     while (str[i])
     {

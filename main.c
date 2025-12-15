@@ -6,13 +6,13 @@ int	main(int argc, char	*argv[], char *envp[])
 {
 	char	*input;
 	t_token	*token_list;
-	//t_env	*env_list;
+	t_env	*env_list;
 	//unused uyarısı almamk için yaptım
 	(void)argc;
 	(void)argv;
-	(void)envp;
-	// env_list = NULL;
-	// init_env(&env_list, envp);
+	//(void)envp;
+	env_list = NULL;
+	init_env(&env_list, envp);
 
     // // 4. TEST: Bakalım listeye almış mıyız? (Sonra sileceğiz)
     // printf("--- ENV LISTESI ---\n");
@@ -40,12 +40,23 @@ int	main(int argc, char	*argv[], char *envp[])
 			//saadet
 			token_list = lexer(input);
 			// 2. TEST: Parçaları ekrana bas (Görmek için)
-            printf("--- LEXER CIKTISI ---\n");
-            print_tokens(token_list);
-            printf("---------------------\n");
+            // // printf("--- LEXER CIKTISI ---\n");
+            // // print_tokens(token_list);
+            // // printf("---------------------\n");
 
             // 3. Executor gelene kadar listeyi burada free'lemeliyiz
             // Yoksa her komutta RAM şişer.
+			expander(&token_list,env_list);
+			// 4. SONUÇLARI GÖRMEK İÇİN YAZDIR
+            printf("--- EXPANDER SONRASI ---\n");
+            t_token *temp = token_list;
+            while (temp)
+            {
+                printf("Token: [%s]\n", temp->value);
+                temp = temp->next;
+            }
+            printf("------------------------\n");
+
             free_token_list(&token_list);
 			//parse_input(input);
 			//ayşe
