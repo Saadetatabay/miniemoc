@@ -34,10 +34,19 @@ void	expand_token(t_token *token, t_env *env_list)
 			double_quote = !double_quote;
 		else if (token->value[i] == '$' && single_quote == 0)
 		{
-			name = var_name(&token->value[i + 1]);
-			value = get_env_value(name, env_list);
-			new_deger = replace_string(token->value, i,ft_strlen(name), ft_strlen(value));
+			name = var_name(&token->value[i + 1]); //$USER mesela burada USER ı alıyoruz
+			if (!name) // eğer isim yoksa sadece $işareti atla
+			{
+				i++;
+				continue;
+			}
+			value = get_env_value(name, env_list); // USER ın env listesinde karşılığına bakar satabay mesela
+			if (!value)
+				value = "";
+			new_deger = replace_string(token->value, i,ft_strlen(name), value);
+			free(token->value);
 			token->value = new_deger;
+			i = i + ft_strlen(new_deger) -1; //satabay
 		}
 		i++;
 	}
@@ -55,4 +64,21 @@ char	*var_name(char *s)
 	while (s[i] && (ft_isalnum(s[i]) || s[i] == '_'))
 		i++;
 	return (ft_substr(s, 0,i));
+}
+
+char	*replace_string(char *old_str, int start, int len_name, char *new)
+{
+	char	*prefix;
+	char	*suffix;
+	char	*temp;
+	char	*result;
+
+	prefix = ft_substr(old_str, 0, start); // $ işaretine kadar olan kısmı aldık
+	suffix = ft_substr(old_str, start + 1 + len_name, ft_strlen(old_str)); // $USER kısmını geçip devamında olan kısmı aldık
+	temp = ft_strjoin(prefix, new);
+	result = ft_strjoin(temp, suffix);
+	free(prefix);
+	free(suffix);
+	free(temp);
+	return (result);
 }
