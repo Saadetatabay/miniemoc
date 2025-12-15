@@ -22,6 +22,7 @@ void	expand_token(t_token *token, t_env *env_list)
 	char	*name;
 	char	*value;
 	char	*new_deger;
+	char	*temp_value;
 
 	i = 0;
 	single_quote = 0;
@@ -40,13 +41,24 @@ void	expand_token(t_token *token, t_env *env_list)
 				i++;
 				continue;
 			}
-			value = get_env_value(name, env_list); // USER ın env listesinde karşılığına bakar satabay mesela
-			if (!value)
-				value = "";
-			new_deger = replace_string(token->value, i,ft_strlen(name), value);
-			free(token->value);
-			token->value = new_deger;
-			i = i + ft_strlen(new_deger) -1; //satabay
+			if (strncmp(name, "?",2) == 0)
+			{
+				value = ft_itoa(exit_status);
+			}
+			else
+			{
+				temp_value = get_env_value(name, env_list); // USER ın env listesinde karşılığına bakar satabay mesela
+				if (temp_value)
+					value = ft_strdup(value);
+				else
+					value = ft_strdup("");
+			}
+				new_deger = replace_string(token->value, i,ft_strlen(name), value);
+				free(token->value);
+				token->value = new_deger;
+				i = i + ft_strlen(value) - 1; //satabay
+				free(value);
+				free(name);
 		}
 		i++;
 	}
