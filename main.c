@@ -61,8 +61,7 @@ int	main(int argc, char	*argv[], char *envp[])
             // printf("------------------------\n");
 
             free_token_list(&token_list);
-			//parse_input(input);
-			//ayşe
+			//ayşe //kanka sen parse_token(token_list) den ksımı alcaksın print_cmd_list görmek içindi benim kısmı
 			//exec_command();
 		}
 		free(input);

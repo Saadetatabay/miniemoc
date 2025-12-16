@@ -8,19 +8,17 @@ t_cmd	*parse_token(t_token *token_list)
     t_cmd   *new_cmd;
 
 	if (!token_list)
-		return (printf("DEBUG: Token listesi bos!\n"), NULL);
+		return (NULL);
     current_token = token_list;
     head = new_cmd_node();
     if (!head)
-		return (printf("DEBUG: Head malloc hatasi!\n"), NULL);
+		return (NULL);
 	current = head;
     while (current_token)
     {
-        printf("DEBUG: Islenen Token Tipi: %d, Deger: %s\n", current_token->type, current_token->value);
         //eğer pipe gördüysek linked list ile bağlayacağız yeni bir kutu açıp oradaki komutları da koyuyorz
         if (current_token->type == PIPE)
         {
-            printf("DEBUG: PIPE algilandi.\n");
             new_cmd = new_cmd_node(); // pıpe sonrarsında yer alanları bağladım yani 
             if (!new_cmd)
                 return NULL;
@@ -30,19 +28,15 @@ t_cmd	*parse_token(t_token *token_list)
         //joinstrarr ile arga ekleyeceğiz
         else if (current_token->type == WORD)
         {
-            printf("DEBUG: WORD ekleniyor: %s\n", current_token->value);
             // la mesela argümana ekledim
             current->args = join_str_array(current->args, current_token->value);
             if (!current->args)
-                return (printf("DEBUG: HATA! join_str_array NULL dondu!\n"), NULL);
-                //return NULL; // buraya sonradn temizleme için kod gelecek    
+            return (NULL); // buraya sonradn temizleme için kod gelecek    
         }
         else
         {
-            printf("DEBUG: Redirection isleniyor.\n");
             if (!add_redirect(current_token, current))
-                return (printf("DEBUG: HATA! add_redirect NULL dondu!\n"), NULL);
-                //return NULL;
+                return (NULL);
             current_token = current_token->next; // neext valuesı doyaadı biz onu hallettik zaten
         }
         current_token = current_token->next;
