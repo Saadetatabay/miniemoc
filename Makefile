@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror -I./libft -I.
 SRC = main.c \
       lexer/lexer.c \
 	  lexer/utils_token.c \
-	  expaner/ expander.c \
+	  expander/expander.c \
 	  parser/parser.c \
 	  parser/parser_utils.c \
 	  env/env.c \
